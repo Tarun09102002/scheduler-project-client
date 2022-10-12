@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import TimePicker from 'react-time-picker'
 import Select from 'react-select'
 import { dummyData, tasks } from '../utils/data'
@@ -8,9 +8,10 @@ import logo from '../images/calendarlogo.png'
 import axios from 'axios'
 
 
-function AddTask() {
+function EditTask() {
     const [data, setData] = useState({})
     const [end, setEnd] = useState('00:00')
+    const { id } = useParams()
     const navigate = useNavigate()
     const colours = ['rgb(214, 239, 246)', 'rgb(186, 213, 240)', 'rgb(248, 215, 232)', 'rgb(203, 233, 195)']
     const time = [
@@ -58,10 +59,18 @@ function AddTask() {
         })
     }
 
+    useEffect(() => {
+        const getTask = async () => {
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/specifictask/${id}`)
+            setData(response.data)
+        }
+        getTask()
+    }, [])
+
     const onSubmit = async () => {
         if (data && data.title && data.description && data.start && data.end && data.color) {
-            const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/add/tasks/${sessionStorage.getItem('userid')}`, data)
-            navigate(`/${data.date}`)
+            const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/edit/tasks/${id}`, data)
+            navigate(`/task/${id}`)
         }
     }
 
@@ -78,15 +87,15 @@ function AddTask() {
                 <div className='flex flex-col items-center w-[80%] overflow-y-auto '>
                     <div className='flex flex-col justify-between w-[80%]'>
                         <div className='font-sans font-bold text-xl text-theme-colour mt-4'>Event Title</div>
-                        <input type='text' className='border-2 border-theme-colour rounded-2xl mt-2 px-2 py-1' name='title' onChange={(event) => onUpdate(event)} />
+                        <input type='text' className='border-2 border-theme-colour rounded-2xl mt-2 px-2 py-1' name='title' value={data.title} onChange={(event) => onUpdate(event)} />
                     </div>
                     <div className='flex flex-col w-[80%]'>
                         <div className='font-sans font-bold text-xl text-theme-colour mt-4'>Event Description</div>
-                        <textarea className='border-2 border-theme-colour rounded-2xl mt-2 px-2 py-1' name='description' onChange={(event) => onUpdate(event)} />
+                        <textarea className='border-2 border-theme-colour rounded-2xl mt-2 px-2 py-1' name='description' value={data.description} onChange={(event) => onUpdate(event)} />
                     </div>
                     <div className='flex flex-col w-[80%]'>
                         <div className='font-sans font-bold text-xl text-theme-colour mt-4'>Event Date</div>
-                        <input type='date' className='border-2 border-theme-colour rounded-2xl mt-2 px-2 py-1' name='date' onChange={(event) => onUpdate(event)} />
+                        <input type='date' className='border-2 border-theme-colour rounded-2xl mt-2 px-2 py-1' name='date' value={data.date} onChange={(event) => onUpdate(event)} />
                     </div>
                     <div className='flex flex-row text-theme-colour justify-start w-[80%]'>
                         <div className='flex flex-col'>
@@ -121,7 +130,7 @@ function AddTask() {
                         </div>
                     </div>
                     <div className='flex ml-0 mt-3 flex-row justify-start w-[80%]'>
-                        <div className='bg-theme-colour font-sans hover:cursor-pointer px-4 text-center py-2 rounded-2xl text-xl text-white mt-4' onClick={() => onSubmit()}>Add Task</div>
+                        <div onClick={onSubmit} className='bg-theme-colour font-sans hover:cursor-pointer px-4 text-center py-2 rounded-2xl text-xl text-white mt-4' >Edit Task</div>
                         <div className='bg-theme-colour font-sans hover:cursor-pointer px-4 text-center py-2 ml-8 rounded-2xl text-xl text-white mt-4' onClick={() => navigate(`/`)}>Cancel</div>
                     </div>
                 </div>
@@ -136,4 +145,4 @@ function AddTask() {
 <input type='date' className='border-2 border-theme-colour rounded-2xl w-[80%] mt-2 px-2 py-1' name='date' onChange={(event) => onUpdate(event)} />
 </div> */}
 
-export default AddTask
+export default EditTask

@@ -7,17 +7,21 @@ import { Scheduler } from './index'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 
-function Home() {
-    const [dateState, setDateState] = useState(new Date())
+function SpecificDate() {
+    const [dateState, setDateState] = useState()
     const [tasks, setTasks] = useState()
+    const { date } = useParams()
 
     const fetchTasks = async () => {
         const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tasks/${sessionStorage.getItem('userid')}?date=${format(dateState, 'yyyy-MM-dd')}`)
         setTasks(res.data)
     }
     useEffect(() => {
-        fetchTasks()
-    }, [dummyData])
+        if (date) {
+            setDateState(new Date(date))
+            fetchTasks()
+        }
+    }, [])
 
     useEffect(() => {
         fetchTasks()
@@ -30,7 +34,7 @@ function Home() {
             <Navbar></Navbar>
             <div className='flex my-4 flex-row py-4 justify-between rounded-2xl bg-white drop-shadow-2xl pl-4' >
                 <div className='ml-4 text-2xl font-sans font-bold text-theme-colour'>
-                    {dateState.getDate()} {dateState.toLocaleString('default', { month: 'long' })}
+                    {dateState?.getDate()} {dateState?.toLocaleString('default', { month: 'long' })}
                     <BsFillArrowLeftCircleFill className='inline-block ml-4 text-4xl text-theme-colour hover:cursor-pointer' onClick={() => setDateState(subDays(dateState, 1))} />
                     <BsFillArrowRightCircleFill className='inline-block ml-4 text-4xl text-theme-colour hover:cursor-pointer' onClick={() => setDateState(addDays(dateState, 1))} />
                 </div>
@@ -40,4 +44,4 @@ function Home() {
     )
 }
 
-export default Home
+export default SpecificDate

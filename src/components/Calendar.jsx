@@ -19,6 +19,7 @@ import { Fragment, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Navbar, EventsToday } from './index'
 import { dummyData } from '../utils/data'
+import axios from 'axios'
 
 
 function classNames(...classes) {
@@ -33,11 +34,15 @@ export default function Calendar() {
     let firstDayCurrentMonth = parse(currentMonth, 'MMM-yyyy', new Date())
     const navigate = useNavigate()
 
+    const fetchTasks = async (dayString) => {
+        const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tasks/${sessionStorage.getItem('userid')}?date=${dayString}`)
+        setTask(res.data)
+    }
+
     useEffect(() => {
         const dayString = format(selectedDay, 'yyyy-MM-dd')
-        console.log(dayString)
-        console.log(dummyData[dayString])
-        setTask(dummyData[dayString])
+        fetchTasks(dayString)
+        // setTask(dummyData[dayString])
     }, [selectedDay])
 
     let days = eachDayOfInterval({
