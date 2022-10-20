@@ -21,8 +21,8 @@ function Register() {
         else {
             setError('')
             await axios.post(`${process.env.REACT_APP_SERVER_URL}/register`, userInfo)
+            navigate('/login')
         }
-        navigate('/login')
     }
 
     return (

@@ -143,7 +143,6 @@ export default function Calendar() {
                     </div>
                 </div>
                 <EventsToday tasks={task} date={format(selectedDay, 'yyyy-MM-dd')} />
-
             </div>
         </div>
     )

@@ -69,7 +69,7 @@ function EditTask() {
 
     const onSubmit = async () => {
         if (data && data.title && data.description && data.start && data.end && data.color) {
-            const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/edit/tasks/${id}`, data)
+            const res = await axios.put(`${process.env.REACT_APP_SERVER_URL}/edit/tasks/${id}`, data)
             navigate(`/task/${id}`)
         }
     }
@@ -83,7 +83,7 @@ function EditTask() {
                 </div>
             </div>
             <div className='flex flex-col pt-4 pb-8 items-center rounded-2xl drop-shadow-2xl bg-white h-[85%] w-[60%]'>
-                <div className='text-4xl font-bold font-sans text-theme-colour'>Add an Event</div>
+                <div className='text-4xl font-bold font-sans text-theme-colour'>Edit an Event</div>
                 <div className='flex flex-col items-center w-[80%] overflow-y-auto '>
                     <div className='flex flex-col justify-between w-[80%]'>
                         <div className='font-sans font-bold text-xl text-theme-colour mt-4'>Event Title</div>
