@@ -1,30 +1,39 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-function EventsToday({ tasks, date }) {
+function EventsToday({ tasks, date, meets }) {
     const navigate = useNavigate()
     const [eventDate, setEventDate] = useState()
+    const [meetDate, setMeetDate] = useState()
     const initialiseTask = () => {
-        const dates = []
+        const eventDates = []
+        const meetDates = []
         for (let i = 0; i < 24; i++) {
-            dates.push([])
+            eventDates.push([])
+            meetDates.push([])
         }
         if (tasks) {
             for (const i in tasks) {
-                dates[tasks[i].start].push(tasks[i])
+                eventDates[tasks[i].start].push(tasks[i])
             }
         }
-        setEventDate(dates)
+        if (meets) {
+            for (const i in meets) {
+                meetDates[meets[i].start].push(meets[i])
+            }
+        }
+        setEventDate(eventDates)
+        setMeetDate(meetDates)
     }
 
     useEffect(() => {
         initialiseTask()
     }, [tasks])
 
-    function EventDiv() {
+    function EventDiv({ dates }) {
         return (
             <div className='flex flex-col'>
-                {eventDate && eventDate.map((task, index) => {
+                {dates && dates.map((task, index) => {
                     return <div key={index}>
                         {
                             task && task.map((taskSpecific, ind) => {
@@ -44,8 +53,14 @@ function EventsToday({ tasks, date }) {
 
     return (
         <div className='w-1/3 ml-5 rounded-2xl flex flex-col justify-between text-white px-4 pt-4 overflow-y-auto shadow-2xl bg-theme-colour h-[600px] mr-10'>
-            <div className='text-2xl pb-4'>Events:</div>
-            {tasks && tasks.length === 0 ? <div className='text-2xl'>No tasks for the day!</div> : <EventDiv />}
+            <div>
+                <div className='text-2xl pb-4'>Events:</div>
+                {tasks && tasks.length === 0 ? <div className='text-2xl'>No tasks for the day!</div> : <EventDiv dates={eventDate} />}
+            </div>
+            <div>
+                <div className='text-2xl pb-4'>Meets:</div>
+                {meets && meets.length === 0 ? <div className='text-2xl'>No Meets for the day!</div> : <EventDiv dates={meetDate} />}
+            </div>
             <div className='bg-white px-2 py-2 hover:cursor-pointer text-theme-colour w-2/5 mb-8 rounded-lg text-lg font-semibold text-center' onClick={() => { navigate(`/${date}`) }}>View in Detail</div>
         </div>
     )

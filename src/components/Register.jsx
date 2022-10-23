@@ -4,11 +4,13 @@ import registerImage from '../images/register_image.jpg'
 import InputCustom from './InputBox'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { useEffect } from 'react'
 
 function Register() {
     const [userInfo, setUserInfo] = useState({})
     const navigate = useNavigate()
     const [error, setError] = useState('')
+    const [image, setImage] = useState('')
 
     const handleSubmit = async (event) => {
         event.preventDefault()
@@ -20,10 +22,24 @@ function Register() {
         }
         else {
             setError('')
-            await axios.post(`${process.env.REACT_APP_SERVER_URL}/register`, userInfo)
-            navigate('/login')
+            const formData = new FormData()
+            formData.append('Username', userInfo.Username)
+            formData.append('Email', userInfo.Email)
+            formData.append('Password', userInfo.Password)
+            formData.append('Name', userInfo.Name)
+            formData.append('Image', image)
+            const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/register`, formData)
+            if (res.data.message === 'unsuccessful') {
+                setError('Username or Email already exists')
+            }
+            else {
+                navigate('/login')
+            }
         }
     }
+    useEffect(() => {
+        console.log(image)
+    }, [image])
 
     return (
         <div className='flex md:flex-row flex-col h-[100vh] items-center w-full justify-between'>
@@ -47,6 +63,9 @@ function Register() {
                         return { ...prev, "confirmPassword": event.target.value }
                     })
                 }} value={userInfo.confirmPassword} name='Confirm Password' className="input-box pl-8 text-left font-sans font-normal w-1/2 text-[#543F9D] my-2 focus:placeholder-transparent placeholder-[#543F9D] py-2 text-2xl bg-transparent outline-none rounded-3xl  border-2 border-[#543F9D]"></input>
+                <input type="file" onChange={(event) => {
+                    setImage(event.target.files[0])
+                }} className="input-box pl-8 text-left font-sans font-normal w-1/2 text-[#543F9D] my-2 focus:placeholder-transparent placeholder-[#543F9D] py-2  bg-transparent outline-none rounded-3xl  border-2 border-[#543F9D]" />
                 {error && <div className='text-red-500'>{error}</div>}
                 <div className='flex flex-col items-center'>
                     <div className='hover:cursor-pointer text-theme-colour text-lg mb-2' onClick={() => navigate('/login')}>Already have an account?</div>

@@ -10,11 +10,14 @@ import axios from 'axios'
 function SpecificDate() {
     const [dateState, setDateState] = useState()
     const [tasks, setTasks] = useState()
+    const [meets, setMeets] = useState()
     const { date } = useParams()
 
     const fetchTasks = async () => {
         const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tasks/${sessionStorage.getItem('userid')}?date=${format(dateState, 'yyyy-MM-dd')}`)
-        setTasks(res.data)
+        console.log(res.data)
+        setTasks(res.data.events)
+        setMeets(res.data.meets)
     }
     useEffect(() => {
         if (date) {
@@ -39,7 +42,7 @@ function SpecificDate() {
                     <BsFillArrowRightCircleFill className='inline-block ml-4 text-4xl text-theme-colour hover:cursor-pointer' onClick={() => setDateState(addDays(dateState, 1))} />
                 </div>
             </div>
-            <Scheduler tasks={tasks} />
+            <Scheduler tasks={tasks} meets={meets} />
         </div>
     )
 }

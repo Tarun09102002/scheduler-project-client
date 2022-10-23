@@ -18,8 +18,8 @@ import {
 import { Fragment, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Navbar, EventsToday } from './index'
-import { dummyData } from '../utils/data'
 import axios from 'axios'
+import isFirstDayOfMonth from 'date-fns/esm/fp/isFirstDayOfMonth/index'
 
 
 function classNames(...classes) {
@@ -30,20 +30,19 @@ export default function Calendar() {
     let today = startOfToday()
     let [selectedDay, setSelectedDay] = useState(today)
     let [currentMonth, setCurrentMonth] = useState(format(today, 'MMM-yyyy'))
+    const [eventDates, setEventDates] = useState([])
+    const [meetDates, setMeetDates] = useState([])
     const [task, setTask] = useState()
+    const [meet, setMeet] = useState()
+    const [monthTask, setMonthTask] = useState()
+    const [monthMeets, setMonthMeets] = useState()
     let firstDayCurrentMonth = parse(currentMonth, 'MMM-yyyy', new Date())
     const navigate = useNavigate()
-
-    const fetchTasks = async (dayString) => {
-        const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tasks/${sessionStorage.getItem('userid')}?date=${dayString}`)
-        setTask(res.data)
+    const fetchMonthTasks = async (monthString) => {
+        const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tasks/${sessionStorage.getItem('userid')}?month=${monthString}`)
+        setMonthTask(res.data.events)
+        setMonthMeets(res.data.meets)
     }
-
-    useEffect(() => {
-        const dayString = format(selectedDay, 'yyyy-MM-dd')
-        fetchTasks(dayString)
-        // setTask(dummyData[dayString])
-    }, [selectedDay])
 
     let days = eachDayOfInterval({
         start: firstDayCurrentMonth,
@@ -63,6 +62,29 @@ export default function Calendar() {
         let firstDayNextMonth = add(firstDayCurrentMonth, { months: 1 })
         setCurrentMonth(format(firstDayNextMonth, 'MMM-yyyy'))
     }
+    useEffect(() => {
+        const dayString = format(selectedDay, 'yyyy-MM-dd')
+        const daysTask = monthTask?.filter((task) => task.date === dayString)
+        setTask(daysTask)
+        const daysMeet = monthMeets?.filter((meet) => meet.date === dayString)
+        setMeet(daysMeet)
+    }, [selectedDay])
+
+    useEffect(() => {
+        const monthString = format(firstDayCurrentMonth, 'yyyy-MM')
+        fetchMonthTasks(monthString)
+    }, [currentMonth])
+
+    useEffect(() => {
+        const dates = monthTask?.map((task) => {
+            return task.date
+        })
+        setEventDates(dates)
+        const meetDates = monthMeets?.map((meet) => {
+            return meet.date
+        })
+        setMeetDates(meetDates)
+    }, [monthTask])
 
     return (
         <div className="w-full h-screen flex flex-col overflow-y-hidden">
@@ -124,6 +146,9 @@ export default function Calendar() {
                                         !isToday(day) &&
                                         !isSameMonth(day, firstDayCurrentMonth) &&
                                         'text-gray-400',
+                                        (eventDates?.find((date) => date === format(day, 'yyyy-MM-dd'))) && !isEqual(day, selectedDay) && !isToday(day) && 'bg-purple-200',
+                                        (meetDates?.find((date) => date === format(day, 'yyyy-MM-dd'))) && !isEqual(day, selectedDay) && !isToday(day) && 'bg-green-200',
+
                                         isEqual(day, selectedDay) && isToday(day) && 'bg-red-500',
                                         isEqual(day, selectedDay) &&
                                         !isToday(day) &&
@@ -142,7 +167,7 @@ export default function Calendar() {
                         ))}
                     </div>
                 </div>
-                <EventsToday tasks={task} date={format(selectedDay, 'yyyy-MM-dd')} />
+                <EventsToday tasks={task} meets={meet} date={format(selectedDay, 'yyyy-MM-dd')} />
             </div>
         </div>
     )

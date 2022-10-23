@@ -41,6 +41,7 @@ function Login() {
             Email: email,
             Name: name,
             Password: userObject.sub,
+            ImageUrl: userObject.picture
         }
         console.log(userInfoLogin)
         const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/googlelogin`, userInfoLogin)

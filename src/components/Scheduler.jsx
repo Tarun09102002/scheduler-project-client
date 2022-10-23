@@ -2,15 +2,16 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AiOutlineCheckCircle } from 'react-icons/ai'
+import meet from '../images/meeticon.png'
 
-function Scheduler({ tasks }) {
+function Scheduler({ tasks, meets }) {
     const navigate = useNavigate()
     const [eventDate, setEventDate] = useState([])
     const [scheduleDiv, setScheduleDiv] = useState()
 
     useEffect(() => {
         initialiseTask()
-    }, [tasks])
+    }, [tasks, meets])
 
     useEffect(() => {
         setScheduleDiv(initialiseScheduleDiv())
@@ -37,6 +38,13 @@ function Scheduler({ tasks }) {
                 }
             }
         }
+        if (meets) {
+            for (const i in meets) {
+                for (let j = parseInt(meets[i].start); j < (parseInt(meets[i].end) === 0 ? 24 : parseInt(meets[i].end)); j++) {
+                    dates[j].push(meets[i])
+                }
+            }
+        }
         setEventDate(dates)
     }
 
@@ -54,7 +62,10 @@ function Scheduler({ tasks }) {
                         {eventDate[i] && eventDate[i].map((task, index) => {
                             return <div key={index} className='w-[98%] mx-2 h-[95%] text-xl flex flex-row justify-between rounded-lg py-2 px-4 hover:cursor-pointer' style={{ backgroundColor: `${task ? task.color : 'white'}` }} onClick={() => task && navigate(`/task/${task._id}`)}>
                                 <div> {task ? task.title : "No event"} </div>
-                                {task.completed === true && <AiOutlineCheckCircle className='inline-block ml-4 text-2xl text-theme-colour w-8 h-8 hover:cursor-pointer' onClick={() => task && navigate(`/task/${task._id}`)} />}
+                                <div>
+                                    {task.completed === true && <AiOutlineCheckCircle className='inline-block ml-4 text-2xl text-theme-colour w-8 h-8 hover:cursor-pointer' />}
+                                    {task.link && <img src={meet} className='inline-block ml-4 text-2xl text-theme-colour w-8 h-8 hover:cursor-pointer' />}
+                                </div>
                             </div>
                         })}
                     </div>

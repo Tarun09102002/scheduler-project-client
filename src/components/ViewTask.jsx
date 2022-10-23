@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Navigate } from 'react-router-dom'
 import { tasks } from '../utils/data'
 import { useState, useEffect } from 'react'
 import logo from '../images/calendarlogo.png'
@@ -9,6 +9,7 @@ function ViewTask() {
     const [task, setTask] = useState()
     const [date, setDate] = useState()
     const navigate = useNavigate()
+    const [isMeet, setIsMeet] = useState(false)
     const [completed, setCompleted] = useState(task?.completed)
     const months = ['Janurary', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
@@ -56,6 +57,7 @@ function ViewTask() {
 
     useEffect(() => {
         if (task) {
+            setIsMeet(task.link && true)
             const dateTemp = new Date(task?.date)
             if (dateTemp)
                 setDate(`${dateTemp.getDate()} ${months[dateTemp.getMonth()]} ${dateTemp.getFullYear()}`)
@@ -78,12 +80,13 @@ function ViewTask() {
                         navigate(`/${task.date}`)
                     }}>{date}</div>
                     <div className='text-2xl mt-4'>{`${task?.start === "0" ? 12 : (task?.start > 12 ? (task?.start - 12) : task?.start)}:00 ${task?.start >= 12 ? 'PM' : 'AM'} - ${task?.end === "0" ? 12 : (task?.end > 12 ? (task?.end - 12) : task?.end)}:00 ${task?.end >= 12 ? 'PM' : 'AM'}`}</div>
+                    {isMeet && <div className='text-2xl mt-4'>Link: <a href={task.link}>{task.link}</a></div>}
                     <div className='text-2xl mt-12'>{task?.description}</div>
                 </div>
                 <div className='flex ml-0 mb-24 flex-row justify-start w-[80%]'>
                     <div onClick={() => navigate(`/edit/${task._id}`)} className='bg-theme-colour font-sans hover:cursor-pointer px-4 text-center py-2 rounded-2xl text-xl text-white mt-4' >Edit Task</div>
-                    <div onClick={() => handleDelete()} className='bg-theme-colour font-sans hover:cursor-pointer px-4 text-center py-2 ml-8 rounded-2xl text-xl text-white mt-4' >Delete Task</div>
-                    <div onClick={() => handleComplete(completed ? false : true)} className='bg-theme-colour font-sans hover:cursor-pointer px-4 text-center py-2 ml-8 rounded-2xl text-xl text-white mt-4' >{!completed ? "Complete Task" : "Pending Task"}</div>
+                    <div onClick={() => handleDelete()} className='bg-theme-colour font-sans hover:cursor-pointer px-4 text-center py-2 ml-8 rounded-2xl text-xl text-white mt-4' >Delete {isMeet ? 'Meet' : 'Task'}</div>
+                    <div onClick={() => handleComplete(completed ? false : true)} className='bg-theme-colour font-sans hover:cursor-pointer px-4 text-center py-2 ml-8 rounded-2xl text-xl text-white mt-4' >{!completed ? `Complete ${isMeet ? 'Meet' : 'Task'}` : `Pending ${isMeet ? 'Meet' : 'Task'}`}</div>
                 </div>
             </div>
         </div>
