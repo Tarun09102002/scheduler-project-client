@@ -1,5 +1,3 @@
-import { Menu, Transition } from '@headlessui/react'
-import { DotsVerticalIcon } from '@heroicons/react/outline'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid'
 import {
     add,
@@ -8,7 +6,6 @@ import {
     format,
     getDay,
     isEqual,
-    isSameDay,
     isSameMonth,
     isToday,
     parse,

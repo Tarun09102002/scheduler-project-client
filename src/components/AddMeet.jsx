@@ -1,16 +1,13 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import TimePicker from 'react-time-picker'
 import Select from 'react-select'
-import { dummyData, tasks } from '../utils/data'
 import logo from '../images/calendarlogo.png'
 import axios from 'axios'
 
 
 function AddMeet() {
     const [data, setData] = useState({})
-    const [end, setEnd] = useState('00:00')
     const [participants, setParticipants] = useState([])
     const [participantName, setParticipantName] = useState('')
     const [error, setError] = useState('')
@@ -42,7 +39,6 @@ function AddMeet() {
         { label: "10:00 PM", value: "22" },
         { label: "11:00 PM", value: "23" },
     ]
-    const users = ['Tarun123', 'Tarun']
 
     const onUpdate = (event) => {
         setData((prev) => {

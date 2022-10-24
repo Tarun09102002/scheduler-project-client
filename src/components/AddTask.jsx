@@ -1,16 +1,13 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import TimePicker from 'react-time-picker'
 import Select from 'react-select'
-import { dummyData, tasks } from '../utils/data'
 import logo from '../images/calendarlogo.png'
 import axios from 'axios'
 
 
 function AddTask() {
     const [data, setData] = useState({})
-    const [end, setEnd] = useState('00:00')
     const navigate = useNavigate()
     const colours = ['rgb(214, 239, 246)', 'rgb(186, 213, 240)', 'rgb(248, 215, 232)', 'rgb(203, 233, 195)']
     const time = [
