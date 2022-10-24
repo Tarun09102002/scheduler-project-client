@@ -87,7 +87,7 @@ export default function Calendar() {
         <div className="w-full min-h-screen flex flex-col overflow-y-hidden">
             <Navbar />
             <div className='flex md:flex-row flex-col items-center min-h-[92vh] h-auto justify-between'>
-                <div className="px-5 mb-10 md:mb-0 pt-5 md:ml-10 shadow-xl rounded-2xl flex flex-col justify-center h-[600px] md:w-3/5 w-[95%] md:px-6">
+                <div className="px-5 mb-10 md:mb-0 pt-5 md:ml-10 shadow-xl rounded-2xl flex flex-col justify-center md:h-[600px] h-auto md:w-3/5 w-[95%] md:px-6">
                     <div className="flex items-center">
                         <h2 className="flex-auto font-semibold text-2xl text-theme-colour">
                             {format(firstDayCurrentMonth, 'MMMM yyyy')}
@@ -118,7 +118,7 @@ export default function Calendar() {
                         <div>F</div>
                         <div>S</div>
                     </div>
-                    <div className="grid grid-cols-7 mt-5 text-lg h-[700px]">
+                    <div className="grid grid-cols-7 mt-5 text-lg h-auto min-h-[450px] md:h-[700px]">
                         {days.map((day, dayIdx) => (
                             <div
                                 key={day.toString()}
