@@ -95,9 +95,9 @@ function AddMeet() {
                     <div className='font-bold text-2xl pl-2 text-theme-colour'>Calendar</div>
                 </div>
             </div>
-            <div className='flex flex-col pt-4 pb-8 items-center rounded-2xl drop-shadow-2xl bg-white mb-10 w-[60%]'>
+            <div className='flex flex-col pt-4 pb-8 items-center rounded-2xl drop-shadow-2xl bg-white h-[85%] md:w-[60%] w-[95%]'>
                 <div className='text-4xl font-bold font-sans text-theme-colour'>Add a Meet</div>
-                <div className='flex flex-col items-center w-[80%] overflow-y-auto '>
+                <div className='flex flex-col items-center md:w-[80%] w:[100%] overflow-y-auto '>
                     <div className='flex flex-col justify-between w-[80%]'>
                         <div className='font-sans font-bold text-xl text-theme-colour mt-4'>Meet Title</div>
                         <input type='text' className='border-2 border-theme-colour rounded-2xl mt-2 px-2 py-1' name='title' onChange={(event) => onUpdate(event)} />
@@ -141,7 +141,7 @@ function AddMeet() {
                         <div className='font-sans font-bold text-xl text-theme-colour mt-4'>Meet Date</div>
                         <input type='date' className='border-2 border-theme-colour rounded-2xl mt-2 px-2 py-1' name='date' onChange={(event) => onUpdate(event)} />
                     </div>
-                    <div className='flex flex-row text-theme-colour justify-start w-[80%]'>
+                    <div className='flex flex-row justify-center text-theme-colour md:justify-start md:w-[80%] w-[95%]'>
                         <div className='flex flex-col'>
                             <div className='font-sans font-bold text-xl mr-5 text-theme-colour mt-4'>Meet Start Time</div>
                             <Select options={time} placeholder="00:00 AM" className='text-theme-colour rounded-2xl w-auto mt-2 mr-4 py-1' onChange={(value) => setData((prevData) => {
@@ -161,7 +161,7 @@ function AddMeet() {
                             })}></Select>
                         </div>
                     </div>
-                    <div className='flex flex-row justify-between w-[80%]'>
+                    <div className='flex flex-row justify-between md:ml-0 ml-5 md:w-[80%] w-[95%]'>
                         <div className='flex flex-col'>
                             <div className='font-sans font-bold text-xl text-theme-colour mt-4'>Meet Background Colour</div>
                             <div className='flex flex-row'>

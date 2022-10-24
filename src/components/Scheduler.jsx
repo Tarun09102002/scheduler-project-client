@@ -52,15 +52,15 @@ function Scheduler({ tasks, meets }) {
         const elements = []
         for (let i = 0; i < 24; i++) {
             elements.push(
-                <div className={`flex flex-row h-28  text-theme-colour relative border-black  border-t-2 border-opacity-20`} id={`div${i}`} key={i}>
+                <div className={`flex flex-row md:h-28 h-36  text-theme-colour relative border-black  border-t-2 border-opacity-20`} id={`div${i}`} key={i}>
                     <div className='w-2/12 px-2 py-2 border-black border-r-2 border-opacity-20'>
                         <div className='top-0 text-xl inline-block p-1 absolute -translate-y-[50%] bg-white pl-4 left-0'>
                             {i <= 12 ? `${i}` : `${i - 12}`}:00 {i < 12 ? 'AM' : 'PM'}
                         </div>
                     </div>
-                    <div className={`flex flex-row justify-around items-center w-10/12 py-2 overflow-x-hidden`} >
+                    <div className={`flex flex-row justify-around items-center w-10/12 py-2 overflow-x-auto`} >
                         {eventDate[i] && eventDate[i].map((task, index) => {
-                            return <div key={index} className='w-[98%] mx-2 h-[95%] text-xl flex flex-row justify-between rounded-lg py-2 px-4 hover:cursor-pointer' style={{ backgroundColor: `${task ? task.color : 'white'}` }} onClick={() => task && navigate(`/task/${task._id}`)}>
+                            return <div key={index} className='w-[98%] mx-2 md:h-[95%] h-[85%] text-xl flex flex-row justify-between rounded-lg py-2 px-4 hover:cursor-pointer' style={{ backgroundColor: `${task ? task.color : 'white'}` }} onClick={() => task && navigate(`/task/${task._id}`)}>
                                 <div> {task ? task.title : "No event"} </div>
                                 <div>
                                     {task.completed === true && <AiOutlineCheckCircle className='inline-block ml-4 text-2xl text-theme-colour w-8 h-8 hover:cursor-pointer' />}
@@ -82,7 +82,7 @@ function Scheduler({ tasks, meets }) {
 
 
     return (
-        <div id='temp' className='flex flex-col py-2 overflow-y-auto rounded-2xl max-h-[550px] bg-white drop-shadow-2xl' >
+        <div id='temp' className='flex flex-col py-2 overflow-y-auto rounded-2xl max-h-[700px] bg-white drop-shadow-2xl' >
             {scheduleDiv ? scheduleDiv : null}
         </div>
     )

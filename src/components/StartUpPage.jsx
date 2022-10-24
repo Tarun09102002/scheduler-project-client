@@ -16,12 +16,12 @@ function StartUpPage() {
     }
     return (
         <div className='flex flex-col justify-between h-[100vh]'>
-            <div className="flex flex-row mt-5 justify-between font-['Poppins']">
-                <div className='pl-5 flex flex-row items-center '>
+            <div className="flex md:flex-row flex-col mt-5 md:justify-between items-center font-['Poppins']">
+                <div className='md:pl-5 flex flex-row items-center '>
                     <img src={logo} className="w-12 h-12" alt="" />
                     <div className='font-bold text-2xl pl-2 text-theme-colour'>Calendar</div>
                 </div>
-                <div className='pr-5 flex flex-row items-center text-white'>
+                <div className='md:pr-5 flex flex-row md:mt-0 mt-5 items-center text-white'>
                     <div className="bg-[#C0A6EE] hover:cursor-pointer px-4 w-28 text-center py-2 rounded-lg text-xl" onClick={() => handleClick('login')}>Login</div>
                     <div className="bg-[#3A91F8] hover:cursor-pointer px-4 ml-8 py-2 w-28 text-center rounded-lg text-xl" onClick={() => handleClick('register')}>Register</div>
                 </div>
@@ -33,7 +33,7 @@ function StartUpPage() {
                     <div className='text-[#2F53C4] capitalize font-bold text-4xl pl-3 mt-4'>{day}</div>
                 </div>
                 <div className='lg:pr-8'>
-                    <img src={bgImg} className="h-[700px]" alt="" />
+                    <img src={bgImg} className="w-[700px]" alt="" />
                 </div>
             </div>
         </div>

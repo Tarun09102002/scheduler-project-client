@@ -52,7 +52,7 @@ function EventsToday({ tasks, date, meets }) {
     }
 
     return (
-        <div className='w-1/3 ml-5 rounded-2xl flex flex-col justify-between text-white px-4 pt-4 overflow-y-auto shadow-2xl bg-theme-colour h-[600px] mr-10'>
+        <div className='md:w-1/3 w-[95%] md:ml-5 mb-10 md:mb-0 rounded-2xl flex flex-col justify-between text-white px-4 pt-4 overflow-y-auto shadow-2xl bg-theme-colour h-[600px] md:mr-10'>
             <div>
                 <div className='text-2xl pb-4'>Events:</div>
                 {tasks && tasks.length === 0 ? <div className='text-2xl'>No tasks for the day!</div> : <EventDiv dates={eventDate} />}

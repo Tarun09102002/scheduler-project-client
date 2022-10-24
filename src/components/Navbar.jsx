@@ -27,10 +27,10 @@ function Navbar() {
         if (e.target.id !== 'nav') {
             setTrigger(false)
         }
-        if (e.target.id !== 'notif') {
+        if (e.target.id !== 'notif1' && e.target.id !== 'notif2' && e.target.id !== 'notif3') {
+            console.log(e.target.id)
             setShowNotification(false)
         }
-
     })
     const getNotifications = async () => {
         const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/notifications/${token}`)
@@ -60,22 +60,22 @@ function Navbar() {
     }, [])
 
     return (
-        <div className='z-50 flex flex-row py-4 justify-between rounded-2xl bg-white drop-shadow-xl' >
+        <div className='z-50 flex flex-row py-4 justify-between w-full rounded-2xl bg-white drop-shadow-xl' >
             <div className='pl-5 flex flex-row items-center hover:cursor-pointer' onClick={() => navigate('/')}>
                 <img src={logo} className="w-12 h-12" alt="" />
-                <div className='font-bold text-2xl pl-2 text-theme-colour'>Calendar</div>
+                <div className='font-bold text-2xl pl-2 md:visible invisible text-theme-colour'>Calendar</div>
             </div>
             <div className='flex flex-row mr-10 items-center'>
-                <div className='flex flex-col mr-10'>
+                <div className='mr-10 md:flex md:flex-col flex flex-col' id='notif3'>
                     <div className='flex flex-row items-center cursor-pointer' onClick={() => setShowNotification((prev) => !prev)}>
-                        <span className='text-2xl text-theme-colour font-bold' id='notif'>Notification</span>
-                        <IoNotificationsCircleSharp className={`w-10 h-8 ${notification.length > 0 ? 'text-red-500' : 'text-theme-colour'}`} />
+                        <span className='text-2xl text-theme-colour font-bold md:inline-block hidden' id='notif1'>Notification</span>
+                        <IoNotificationsCircleSharp className={`w-10 h-8 ${notification.length > 0 ? 'text-red-500' : 'text-theme-colour'}`} id='notif2' />
                     </div>
                     {showNotification && <Notifications notification={notification} acceptInvite={acceptInvite} rejectInvite={rejectInvite} />}
                 </div>
                 {/* <div className='bg-theme-colour font-sans hover:cursor-pointer px-4 mr-10 text-center py-2 rounded-2xl text-xl text-white' onClick={() => navigate('/calendar')}>View Calendar</div>
                 <div className='bg-theme-colour font-sans hover:cursor-pointer px-4 mr-10 text-center py-2 rounded-2xl text-xl text-white' onClick={() => navigate('/addevent')}>Add Task</div> */}
-                <div className='flex flex-col'>
+                <div className='flex flex-col w-12 md:w-auto md:mr-0 '>
                     <img id='nav' referrerPolicy='no-referrer' src={source ? source : user} alt="" className='w-12 rounded-full cursor-pointer' onClick={() => setTrigger((prev) => !prev)} />
                     <DropDown content={navContent} trigger={trigger} />
                 </div>

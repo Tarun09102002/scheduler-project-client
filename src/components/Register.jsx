@@ -42,11 +42,11 @@ function Register() {
     }, [image])
 
     return (
-        <div className='flex md:flex-row flex-col h-[100vh] items-center w-full justify-between'>
-            <div className='w-3/5'>
+        <div className='flex md:flex-row flex-col-reverse min-h-[100vh] items-center w-full justify-between'>
+            <div className='md:w-3/5'>
                 <img src={registerImage} alt="" />
             </div>
-            <form className='flex flex-col items-center w-3/5 mb-20' onSubmit={handleSubmit}>
+            <form className='flex flex-col mb-5 md:mt-0 mt-10 items-center md:w-3/5 md:mb-20' onSubmit={handleSubmit}>
                 <img src={logo} className="w-20 h-20" alt="" />
                 <div className='font font-sans text-4xl font-bold text-[#543F9D] mt-8'>REGISTER</div>
                 <InputCustom placeholder="Name" field={userInfo} setField={setUserInfo} name="Name"></InputCustom>
@@ -57,15 +57,15 @@ function Register() {
                     setUserInfo((prev) => {
                         return { ...prev, Password: event.target.value }
                     })
-                }} value={userInfo.Password} name='Password' className="input-box pl-8 text-left font-sans font-normal w-1/2 text-[#543F9D] my-2 focus:placeholder-transparent placeholder-[#543F9D] py-2 text-2xl bg-transparent outline-none rounded-3xl  border-2 border-[#543F9D]"></input>
+                }} value={userInfo.Password} name='Password' className="input-box pl-8 text-left font-sans font-normal md:w-1/2 w-full text-[#543F9D] my-2 focus:placeholder-transparent placeholder-[#543F9D] py-2 text-2xl bg-transparent outline-none rounded-3xl  border-2 border-[#543F9D]"></input>
                 <input placeholder='Confirm Password' type="password" onChange={(event) => {
                     setUserInfo((prev) => {
                         return { ...prev, "confirmPassword": event.target.value }
                     })
-                }} value={userInfo.confirmPassword} name='Confirm Password' className="input-box pl-8 text-left font-sans font-normal w-1/2 text-[#543F9D] my-2 focus:placeholder-transparent placeholder-[#543F9D] py-2 text-2xl bg-transparent outline-none rounded-3xl  border-2 border-[#543F9D]"></input>
+                }} value={userInfo.confirmPassword} name='Confirm Password' className="input-box pl-8 text-left font-sans font-normal md:w-1/2 w-full text-[#543F9D] my-2 focus:placeholder-transparent placeholder-[#543F9D] py-2 text-2xl bg-transparent outline-none rounded-3xl  border-2 border-[#543F9D]"></input>
                 <input type="file" onChange={(event) => {
                     setImage(event.target.files[0])
-                }} className="input-box pl-8 text-left font-sans font-normal w-1/2 text-[#543F9D] my-2 focus:placeholder-transparent placeholder-[#543F9D] py-2  bg-transparent outline-none rounded-3xl  border-2 border-[#543F9D]" />
+                }} className="input-box pl-8 text-left font-sans font-normal md:w-1/2 text-[#543F9D] w-full my-2 focus:placeholder-transparent placeholder-[#543F9D] py-2  bg-transparent outline-none rounded-3xl  border-2 border-[#543F9D]" />
                 {error && <div className='text-red-500'>{error}</div>}
                 <div className='flex flex-col items-center'>
                     <div className='hover:cursor-pointer text-theme-colour text-lg mb-2' onClick={() => navigate('/login')}>Already have an account?</div>

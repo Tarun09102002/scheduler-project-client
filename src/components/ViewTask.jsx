@@ -73,7 +73,7 @@ function ViewTask() {
                     <div className='font-bold text-2xl pl-2 text-theme-colour'>Calendar</div>
                 </div>
             </div>
-            <div className={`h-[80%] justify-between flex flex-col pt-10 w-[50%] px-10 text-theme-colour rounded-2xl drop-shadow-xl`} style={{ backgroundColor: task && task.color }}>
+            <div className={`min-h-[80%] h-auto justify-between flex flex-col pt-10 w-[95%] md:w-[50%] px-10 text-theme-colour rounded-2xl drop-shadow-xl`} style={{ backgroundColor: task && task.color }}>
                 <div>
                     <div className='text-4xl font-bold'>{task && task.title}</div>
                     <div className='text-2xl uppercase mt-5 hover:cursor-pointer' onClick={() => {
@@ -83,10 +83,10 @@ function ViewTask() {
                     {isMeet && <div className='text-2xl mt-4'>Link: <a href={task.link}>{task.link}</a></div>}
                     <div className='text-2xl mt-12'>{task?.description}</div>
                 </div>
-                <div className='flex ml-0 mb-24 flex-row justify-start w-[80%]'>
-                    <div onClick={() => navigate(`/edit/${task._id}`)} className='bg-theme-colour font-sans hover:cursor-pointer px-4 text-center py-2 rounded-2xl text-xl text-white mt-4' >Edit Task</div>
-                    <div onClick={() => handleDelete()} className='bg-theme-colour font-sans hover:cursor-pointer px-4 text-center py-2 ml-8 rounded-2xl text-xl text-white mt-4' >Delete {isMeet ? 'Meet' : 'Task'}</div>
-                    <div onClick={() => handleComplete(completed ? false : true)} className='bg-theme-colour font-sans hover:cursor-pointer px-4 text-center py-2 ml-8 rounded-2xl text-xl text-white mt-4' >{!completed ? `Complete ${isMeet ? 'Meet' : 'Task'}` : `Pending ${isMeet ? 'Meet' : 'Task'}`}</div>
+                <div className='flex ml-0 mb-24 md:flex-row flex-col justify-start items-center md:w-[80%] w-full'>
+                    <div onClick={() => navigate(`/edit/${task._id}`)} className='bg-theme-colour md:w-auto w-3/5 font-sans hover:cursor-pointer px-4 text-center py-2 rounded-2xl text-xl text-white mt-4' >Edit Task</div>
+                    <div onClick={() => handleDelete()} className='bg-theme-colour font-sans hover:cursor-pointer w-3/5 md:w-auto px-4 text-center py-2 md:ml-8 rounded-2xl text-xl text-white mt-4' >Delete {isMeet ? 'Meet' : 'Task'}</div>
+                    <div onClick={() => handleComplete(completed ? false : true)} className='bg-theme-colour font-sans w-3/5 md:w-auto hover:cursor-pointer px-4 text-center py-2 md:ml-8 rounded-2xl text-xl text-white mt-4' >{!completed ? `Complete ${isMeet ? 'Meet' : 'Task'}` : `Pending ${isMeet ? 'Meet' : 'Task'}`}</div>
                 </div>
             </div>
         </div>

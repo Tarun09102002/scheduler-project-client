@@ -71,7 +71,7 @@ function Login() {
 
     return (
         <div className='flex md:flex-row flex-col h-[100vh] items-center w-full justify-between'>
-            <form className='flex flex-col items-center w-3/5 mb-20' onSubmit={handleSubmit}>
+            <form className='flex flex-col items-center mt-3 md:w-3/5 w-[95%] mb-20' onSubmit={handleSubmit}>
                 <img src={logo} className="w-20 h-20" alt="" />
                 <div className='font font-sans text-4xl font-bold text-[#543F9D] mt-8'>LOGIN</div>
                 <InputCustom placeholder="Username" field={userInfo} setField={setUserInfo} name="Username"></InputCustom>
@@ -79,7 +79,7 @@ function Login() {
                     setUserInfo((prev) => {
                         return { ...prev, Password: event.target.value }
                     })
-                }} value={userInfo.Password} name='Password' className="input-box pl-8 text-left font-sans font-normal w-1/2 text-[#543F9D] my-2 focus:placeholder-transparent placeholder-[#543F9D] py-2 text-2xl bg-transparent outline-none rounded-3xl  border-2 border-[#543F9D]"></input>
+                }} value={userInfo.Password} name='Password' className="input-box pl-8 text-left font-sans font-normal md:w-1/2 w-full text-[#543F9D] my-2 focus:placeholder-transparent placeholder-[#543F9D] py-2 text-2xl bg-transparent outline-none rounded-3xl  border-2 border-[#543F9D]"></input>
                 {error && <div className='text-red-500'>{error}</div>}
                 <div className='flex flex-col items-center'>
                     <div className='hover:cursor-pointer text-xl mb-8 text-[#543F9D]' onClick={() => navigate('/register')}>Don't have an account?</div>
@@ -87,7 +87,7 @@ function Login() {
                     <div className='my-5' id='google-signin'></div>
                 </div>
             </form>
-            <div className='w-3/5'>
+            <div className='md:w-3/5 w-full'>
                 <img src={loginImage} alt="" />
             </div>
         </div>

@@ -31,18 +31,18 @@ function MeetInvites() {
                 <div className='flex flex-col text-theme-colour mt-5'>
                     {invites?.map((invite, index) => {
                         return (
-                            <div className='flex flex-row justify-around items-center p-4 bg-white border-y-2 border-theme-colour' key={index}>
-                                <div className='flex flex-col'>
-                                    <div className=' flex flex-row items-center'>
+                            <div className='flex md:flex-row flex-col justify-around items-center p-4 bg-white border-y-2 border-theme-colour' key={index}>
+                                <div className='flex flex-col md:text-left text-center'>
+                                    <div className=' flex md:flex-row flex-col items-center'>
                                         <span className='text-xl font-bold '> {invite.title}</span>
                                         <div className='ml-3 text-lg '>created by <span className='underline'> {invite.createdby.name} </span></div>
                                     </div>
-                                    <div className='flex flex-row'>
-                                        <div className='text-lg mr-8'>{format(new Date(invite.date), 'do MMMM yyyy')}</div>
+                                    <div className='flex md:flex-row flex-col'>
+                                        <div className='text-lg md:mr-8'>{format(new Date(invite.date), 'do MMMM yyyy')}</div>
                                         <div className='text-lg '>{`${invite?.start === "0" ? 12 : (invite?.start > 12 ? (invite?.start - 12) : invite?.start)}:00 ${invite?.start >= 12 ? 'PM' : 'AM'} - ${invite?.end === "0" ? 12 : (invite?.end > 12 ? (invite?.end - 12) : invite?.end)}:00 ${invite?.end >= 12 ? 'PM' : 'AM'}`}</div>
                                     </div>
                                     <div className='text-lg'>{invite.description ? invite.description : ''}</div>
-                                    <div className='flex flex-row'>
+                                    <div className='flex flex-row justify-center'>
                                         Participants: {
                                             invite.participants.map((participant, index) => {
                                                 return (
@@ -52,7 +52,7 @@ function MeetInvites() {
                                         }
                                     </div>
                                 </div>
-                                <div className='flex flex-row'>
+                                <div className='flex flex-row md:mt-0 mt-5'>
                                     <button className='bg-theme-colour text-white px-4 py-2 rounded-lg mr-8' onClick={() => acceptInvite(invite._id)}>Accept</button>
                                     <button className='bg-theme-colour text-white px-4 py-2 rounded-lg'>Decline</button>
                                 </div>
