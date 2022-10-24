@@ -74,7 +74,9 @@ function AddMeet() {
                 }
                 setError(`The following users does not exist: ${string}`)
             }
-            navigate(`/${data.date}`)
+            else {
+                navigate(`/${data.date}`)
+            }
         }
         else {
             setError('Please fill all the fields')
