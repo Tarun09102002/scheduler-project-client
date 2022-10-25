@@ -82,6 +82,16 @@ function ViewTask() {
                     <div className='text-2xl mt-4'>{`${task?.start === "0" ? 12 : (task?.start > 12 ? (task?.start - 12) : task?.start)}:00 ${task?.start >= 12 ? 'PM' : 'AM'} - ${task?.end === "0" ? 12 : (task?.end > 12 ? (task?.end - 12) : task?.end)}:00 ${task?.end >= 12 ? 'PM' : 'AM'}`}</div>
                     {isMeet && <div className='text-2xl mt-4'>Link: <a href={task.link}>{task.link}</a></div>}
                     <div className='text-2xl mt-12'>{task?.description}</div>
+                    {isMeet &&
+                        <div className='mt-10 flex flex-col'>
+                            Participants:
+                            {task.participants.map((participant, index) => {
+                                return (
+                                    <div key={index} className='text-2xl mt-2'>{participant.username}</div>
+                                )
+                            })}
+                        </div>
+                    }
                 </div>
                 <div className='flex ml-0 mb-24 md:flex-row flex-col justify-start items-center md:w-[80%] w-full'>
                     <div onClick={() => navigate(`/edit/${task._id}`)} className='bg-theme-colour md:w-auto w-3/5 font-sans hover:cursor-pointer px-4 text-center py-2 rounded-2xl text-xl text-white mt-4' >Edit Task</div>
