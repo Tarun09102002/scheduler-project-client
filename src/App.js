@@ -33,7 +33,7 @@ function App() {
 
 const ProtectedRoutes = (auth) => {
   return (
-    auth ? <Outlet /> : <Navigate to="/" />
+    sessionStorage.getItem('userid') ? <Outlet /> : <Navigate to="/" />
   )
 }
 
