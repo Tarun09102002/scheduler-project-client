@@ -82,7 +82,7 @@ function Scheduler({ tasks, meets }) {
 
 
     return (
-        <div id='temp' className='flex flex-col py-2 overflow-y-auto rounded-2xl max-h-[700px] bg-white drop-shadow-2xl' >
+        <div id='temp' className='flex flex-col py-2 overflow-y-auto rounded-2xl max-h-[600px] bg-white drop-shadow-2xl' >
             {scheduleDiv ? scheduleDiv : null}
         </div>
     )

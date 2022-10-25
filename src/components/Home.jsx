@@ -30,7 +30,7 @@ function Home() {
 
     return (
         <div className='flex flex-col pt-5 z-0 px-4 min-h-screen'>
-            <Navbar></Navbar>
+            <Navbar fetchTasks={fetchTasks}></Navbar>
             <div className=' flex my-4 flex-row py-4 justify-between rounded-2xl bg-white drop-shadow-2xl pl-4' >
                 <div className='ml-4 text-2xl font-sans font-bold text-theme-colour'>
                     {dateState.getDate()} {dateState.toLocaleString('default', { month: 'long' })}

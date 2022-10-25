@@ -21,7 +21,7 @@ function Notifications({ notification, acceptInvite, rejectInvite, clearNotifica
                 }
                 else if (item.type === 'invite') {
                     return (
-                        <div className='flex flex-row notification'>
+                        <div className='flex flex-row notification' key={index}>
                             <div className='py-2 px-4 text-theme-colour notification w-56 text-center hover:cursor-pointer' key={index}>
                                 <span className='font-bold notification'>{item.message}</span>
                             </div>

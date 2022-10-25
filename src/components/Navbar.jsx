@@ -8,7 +8,7 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import { Notifications } from './index'
 
-function Navbar() {
+function Navbar({ fetchTasks }) {
     const navigate = useNavigate()
     const [trigger, setTrigger] = useState(false)
     const [source, setSource] = useState()
@@ -41,6 +41,9 @@ function Navbar() {
         console.log(meetId)
         const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/meet/accept/${sessionStorage.getItem('userid')}`, { meetId: meetId })
         getNotifications()
+        if (fetchTasks) {
+            fetchTasks()
+        }
     }
     const rejectInvite = async (meetId) => {
         console.log(meetId)
@@ -62,6 +65,7 @@ function Navbar() {
         }
         getImage()
         getNotifications()
+        console.log(fetchTasks)
     }, [])
 
     return (
