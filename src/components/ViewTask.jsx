@@ -17,7 +17,7 @@ function ViewTask() {
 
     const getTask = async () => {
         const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/specifictask/${id}`)
-        setTask(response.data)
+        setTask(response.data.task)
     }
     const handleComplete = (complete) => {
         setCompleted(complete)

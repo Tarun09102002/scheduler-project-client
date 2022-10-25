@@ -27,8 +27,7 @@ function Navbar() {
         if (e.target.id !== 'nav') {
             setTrigger(false)
         }
-        if (e.target.id !== 'notif1' && e.target.id !== 'notif2' && e.target.id !== 'notif3') {
-            console.log(e.target.id)
+        if (!e.target.className.includes('notification') && e.target.id !== 'notif1' && e.target.id !== 'notif2' && e.target.id !== 'notif3') {
             setShowNotification(false)
         }
     })
@@ -46,6 +45,12 @@ function Navbar() {
     const rejectInvite = async (meetId) => {
         console.log(meetId)
         const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/meet/reject/${sessionStorage.getItem('userid')}`, { meetId: meetId })
+        getNotifications()
+    }
+
+    const clearNotification = async (notifId) => {
+        const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/user/clearnotification/${token}`, { notifId: notifId })
+        console.log(res.data)
         getNotifications()
     }
 
@@ -71,7 +76,7 @@ function Navbar() {
                         <span className='text-2xl text-theme-colour font-bold md:inline-block hidden' id='notif1'>Notification</span>
                         <IoNotificationsCircleSharp className={`w-10 h-8 ${notification.length > 0 ? 'text-red-500' : 'text-theme-colour'}`} id='notif2' />
                     </div>
-                    {showNotification && <Notifications notification={notification} acceptInvite={acceptInvite} rejectInvite={rejectInvite} />}
+                    {showNotification && <Notifications notification={notification} acceptInvite={acceptInvite} rejectInvite={rejectInvite} getNotifications={getNotifications} clearNotification={clearNotification} />}
                 </div>
                 {/* <div className='bg-theme-colour font-sans hover:cursor-pointer px-4 mr-10 text-center py-2 rounded-2xl text-xl text-white' onClick={() => navigate('/calendar')}>View Calendar</div>
                 <div className='bg-theme-colour font-sans hover:cursor-pointer px-4 mr-10 text-center py-2 rounded-2xl text-xl text-white' onClick={() => navigate('/addevent')}>Add Task</div> */}
