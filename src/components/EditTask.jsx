@@ -62,7 +62,7 @@ function EditTask() {
     useEffect(() => {
         const getTask = async () => {
             const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/specifictask/${id}`)
-            setData(response.data)
+            setData(response.data.task)
         }
         getTask()
     }, [])
