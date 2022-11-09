@@ -63,7 +63,7 @@ function AddMeet() {
         console.log('here')
         if (data && data.title && data.date && data.start && data.end && data.link) {
             console.log(data)
-            const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/add/meet/${sessionStorage.getItem('userid')}`, data)
+            const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/add/meet/${sessionStorage.getItem('token')}`, data)
             console.log(res.data)
             if (res.data.message === 'unsuccessful') {
                 const { unavailableUsers } = res.data

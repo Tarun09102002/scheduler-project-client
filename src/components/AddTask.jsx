@@ -57,7 +57,7 @@ function AddTask() {
 
     const onSubmit = async () => {
         if (data && data.title && data.start && data.end && data.color) {
-            const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/add/tasks/${sessionStorage.getItem('userid')}`, data)
+            const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/add/tasks/${sessionStorage.getItem('token')}`, data)
             navigate(`/${data.date}`)
         }
     }

@@ -36,7 +36,7 @@ export default function Calendar() {
     let firstDayCurrentMonth = parse(currentMonth, 'MMM-yyyy', new Date())
     const navigate = useNavigate()
     const fetchMonthTasks = async (monthString) => {
-        const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tasks/${sessionStorage.getItem('userid')}?month=${monthString}`)
+        const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tasks/${sessionStorage.getItem('token')}?month=${monthString}`)
         setMonthTask(res.data.events)
         setMonthMeets(res.data.meets)
     }

@@ -13,7 +13,7 @@ function Home() {
     const [meets, setMeets] = useState()
 
     const fetchTasks = async () => {
-        const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tasks/${sessionStorage.getItem('userid')}?date=${format(dateState, 'yyyy-MM-dd')}`)
+        const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tasks/${sessionStorage.getItem('token')}?date=${format(dateState, 'yyyy-MM-dd')}`)
         console.log(res.data)
         setTasks(res.data.events)
         setMeets(res.data.meets)

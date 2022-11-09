@@ -5,11 +5,11 @@ import { useState, useEffect } from 'react'
 
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false)
-  // setLoggedIn(localStorage.getItem('loggedIn'))
-  useEffect(() => {
-    setLoggedIn(sessionStorage.getItem('userid') && true)
-  }, [loggedIn])
+  // const [loggedIn, setLoggedIn] = useState(false)
+  // // setLoggedIn(localStorage.getItem('loggedIn'))
+  // useEffect(() => {
+  //   setLoggedIn(sessionStorage.getItem('token') && true)
+  // }, [loggedIn])
   return (
     <Routes>
       {/* <Route path="/" element={localStorage.getItem('loggedIn') ? <Home /> : <StartUpPage />} /> */}
@@ -17,7 +17,7 @@ function App() {
       <Route path="/register" element={<Register />} />
       {/* <Route path="/" element={sessionStorage.getItem('userid') && true ? < Home /> : <StartUpPage />} /> */}
       <Route path="/" element={<SelectHome />} />
-      <Route element={ProtectedRoutes(sessionStorage.getItem('userid') && true)}>
+      <Route element={ProtectedRoutes(sessionStorage.getItem('token') && true)}>
         <Route path="/addevent" element={<AddTask />} />
         <Route path='/task/:id' element={<ViewTask />} />
         <Route path='/calendar' element={<Calendar />} />
@@ -33,7 +33,7 @@ function App() {
 
 const ProtectedRoutes = (auth) => {
   return (
-    sessionStorage.getItem('userid') ? <Outlet /> : <Navigate to="/" />
+    sessionStorage.getItem('token') ? <Outlet /> : <Navigate to="/" />
   )
 }
 

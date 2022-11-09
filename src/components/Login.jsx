@@ -22,7 +22,7 @@ function Login() {
             console.log(res.data)
             if (res.data.message === 'successful') {
                 console.log("successful")
-                await sessionStorage.setItem('userid', res.data.token)
+                await sessionStorage.setItem('token', res.data.token)
                 navigate('/')
             }
             else {
@@ -48,7 +48,7 @@ function Login() {
         console.log(res.data)
         if (res.data.message === 'successful') {
             console.log("successful")
-            await sessionStorage.setItem('userid', res.data.token)
+            await sessionStorage.setItem('token', res.data.token)
             navigate('/')
         }
         else {

@@ -21,7 +21,7 @@ function Navbar({ fetchTasks }) {
         { property: ' View Calendar', link: '/calendar' },
         { property: 'Meet Invites', link: '/invites' },
     ]
-    const token = sessionStorage.getItem('userid')
+    const token = sessionStorage.getItem('token')
 
     document.addEventListener('click', (e) => {
         if (e.target.id !== 'nav') {
@@ -39,7 +39,7 @@ function Navbar({ fetchTasks }) {
 
     const acceptInvite = async (meetId) => {
         console.log(meetId)
-        const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/meet/accept/${sessionStorage.getItem('userid')}`, { meetId: meetId })
+        const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/meet/accept/${sessionStorage.getItem('token')}`, { meetId: meetId })
         getNotifications()
         if (fetchTasks) {
             fetchTasks()
@@ -47,7 +47,7 @@ function Navbar({ fetchTasks }) {
     }
     const rejectInvite = async (meetId) => {
         console.log(meetId)
-        const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/meet/reject/${sessionStorage.getItem('userid')}`, { meetId: meetId })
+        const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/meet/reject/${sessionStorage.getItem('token')}`, { meetId: meetId })
         getNotifications()
     }
 

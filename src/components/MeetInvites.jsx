@@ -7,7 +7,7 @@ import { format } from 'date-fns'
 function MeetInvites() {
     const [invites, setInvites] = useState([])
     const fetchInvites = async () => {
-        const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/meet/invites/${sessionStorage.getItem('userid')}`)
+        const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/meet/invites/${sessionStorage.getItem('token')}`)
         console.log(res.data)
         setInvites(res.data)
     }
@@ -17,7 +17,7 @@ function MeetInvites() {
 
     const acceptInvite = async (meetId) => {
         console.log(meetId)
-        const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/meet/accept/${sessionStorage.getItem('userid')}`, { meetId: meetId })
+        const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/meet/accept/${sessionStorage.getItem('token')}`, { meetId: meetId })
         // setInvites(res.data)
         console.log(res.data)
         fetchInvites()
